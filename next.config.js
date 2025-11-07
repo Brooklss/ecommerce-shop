@@ -10,8 +10,10 @@ const nextConfig = {
       },
     ],
   },
-  basePath: process.env.NODE_ENV === 'production' ? '/ecommerce-shop' : '',
-  assetPrefix: process.env.NODE_ENV === 'production' ? '/ecommerce-shop' : '',
+  // Only use basePath if deploying to a subdirectory like /ecommerce-shop
+  // Comment these out if deploying to root domain (username.github.io)
+  basePath: '/ecommerce-shop',
+  assetPrefix: '/ecommerce-shop/',
 }
 
 module.exports = nextConfig

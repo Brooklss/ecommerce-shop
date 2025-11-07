@@ -1,4 +1,4 @@
-# eCommerce Shop# 🛍️ eCommerce Shop# eCommerce Shop
+# eCommerce Shop# eCommerce Shop# 🛍️ eCommerce Shop# eCommerce Shop
 
 
 
@@ -6,7 +6,7 @@ A modern eCommerce application built with Next.js, TypeScript, Tailwind CSS, Sha
 
 
 
-## 🚀 Live DemoA modern, full-featured eCommerce application built with Next.js 14, TypeScript, and Redux Toolkit. This project demonstrates real-world frontend development skills with complete CRUD operations, state management, and responsive design.A modern eCommerce application built with Next.js, TypeScript, Tailwind CSS, Shadcn UI, and Redux Toolkit. This project demonstrates real-world frontend development skills including CRUD operations, state management, API integration, and responsive design.
+## 🚀 Live DemoA modern eCommerce application built with Next.js, TypeScript, Tailwind CSS, Shadcn UI, and Redux Toolkit.
 
 
 
@@ -14,240 +14,490 @@ A modern eCommerce application built with Next.js, TypeScript, Tailwind CSS, Sha
 
 - **GitHub Pages**: https://brooklss.github.io/ecommerce-shop/
 
-![Next.js](https://img.shields.io/badge/Next.js-14.2-black?style=flat-square&logo=next.js)## Features
+## 🚀 Live DemoA modern, full-featured eCommerce application built with Next.js 14, TypeScript, and Redux Toolkit. This project demonstrates real-world frontend development skills with complete CRUD operations, state management, and responsive design.A modern eCommerce application built with Next.js, TypeScript, Tailwind CSS, Shadcn UI, and Redux Toolkit. This project demonstrates real-world frontend development skills including CRUD operations, state management, API integration, and responsive design.
+
+> **Getting 404 Error?** Read the [Deployment Guide](DEPLOYMENT.md)
+
+> 
+
+> **Quick Fix**: Go to your GitHub repo → Settings → Pages → Source: **"GitHub Actions"**
+
+- **Local**: http://localhost:3000
 
 ## ⚠️ IMPORTANT: Product Editing
 
-![TypeScript](https://img.shields.io/badge/TypeScript-5.5-blue?style=flat-square&logo=typescript)
+- **GitHub Pages**: https://brooklss.github.io/ecommerce-shop/
 
 **You can ONLY edit products YOU created!**
 
-![Redux](https://img.shields.io/badge/Redux_Toolkit-2.2-purple?style=flat-square&logo=redux)### Core Features
+![Next.js](https://img.shields.io/badge/Next.js-14.2-black?style=flat-square&logo=next.js)## Features
 
-Products from the DummyJSON API (IDs 1-194) cannot be edited because they don't belong to you.
+Products from the DummyJSON API (IDs 1-194) belong to the store and cannot be edited.
 
-![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC?style=flat-square&logo=tailwind-css)- ✅ **Product Listing Page** - Display products with pagination, search, and favorite functionality
+## ⚠️ IMPORTANT: Product Editing
 
-### To Test Edit/Delete Features:
+### How to Test Edit/Delete:
 
-1. Login (any username/password works)- ✅ **Product Details Page** - View detailed product information
+1. Login (any username/password works)![TypeScript](https://img.shields.io/badge/TypeScript-5.5-blue?style=flat-square&logo=typescript)
+
+2. Click **"Create Product"** button
+
+3. Fill in the form and submit**You can ONLY edit products YOU created!**
+
+4. Your product will have a **crown badge** 👑
+
+5. NOW you can edit/delete it!![Redux](https://img.shields.io/badge/Redux_Toolkit-2.2-purple?style=flat-square&logo=redux)### Core Features
+
+
+
+**Why the error?** You tried editing Product #195 which you don't own.Products from the DummyJSON API (IDs 1-194) cannot be edited because they don't belong to you.
+
+
+
+## 📦 Installation![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC?style=flat-square&logo=tailwind-css)- ✅ **Product Listing Page** - Display products with pagination, search, and favorite functionality
+
+
+
+```bash### To Test Edit/Delete Features:
+
+# Clone repository
+
+git clone https://github.com/Brooklss/ecommerce-shop.git1. Login (any username/password works)- ✅ **Product Details Page** - View detailed product information
+
+cd ecommerce-shop
 
 2. Click "Create Product" button
 
-3. Fill in the form and submit## 🌟 Features- ✅ **Favorites Page** - Manage favorite products using Redux
+# Install dependencies
 
-4. Now you can edit/delete that product (it will have a crown badge)
+npm install3. Fill in the form and submit## 🌟 Features- ✅ **Favorites Page** - Manage favorite products using Redux
+
+
+
+# Run development server4. Now you can edit/delete that product (it will have a crown badge)
+
+npm run dev
 
 - ✅ **Create Product** - Add new products to the store
 
-## 📦 Installation
+# Open http://localhost:3000
 
-### Core Features (✅ All Implemented)- ✅ **Edit Product** - Update existing product information
+```## 📦 Installation
 
-```bash
 
-# Install dependencies- ✅ **Product Listing Page** - Display products with title, price, rating, category, and image- ✅ **Delete Product** - Remove products with confirmation dialog
 
-npm install
+## 🏗️ Build & Deploy### Core Features (✅ All Implemented)- ✅ **Edit Product** - Update existing product information
+
+
+
+```bash```bash
+
+# Build for production
+
+npm run build# Install dependencies- ✅ **Product Listing Page** - Display products with title, price, rating, category, and image- ✅ **Delete Product** - Remove products with confirmation dialog
+
+
+
+# This creates an 'out' folder with static filesnpm install
+
+```
 
 - ✅ **Infinite Scroll Pagination** - Automatic loading with `?limit=10&skip=10`- ✅ **Search Functionality** - Search products by name
 
+### Deploy to GitHub Pages
+
 # Run development server
+
+See detailed instructions in [DEPLOYMENT.md](DEPLOYMENT.md)
 
 npm run dev- ✅ **Product Search** - Real-time search without page refresh- ✅ **Infinite Scroll Pagination** - Load more products on scroll
 
+**Quick Steps**:
 
+1. Push code to GitHub
 
-# Build for production- ✅ **Category Filter** - Filter products by category dropdown
+2. Go to Settings → Pages
+
+3. Source: Select **"GitHub Actions"**# Build for production- ✅ **Category Filter** - Filter products by category dropdown
+
+4. GitHub Actions will auto-deploy on every push
 
 npm run build
 
+## ✨ Features
+
 ```- ✅ **Product Details Page** - Detailed info with images, brand, stock, and rating### Bonus Features
 
+### Core Features
 
-
-## ✨ Features- ✅ **Favorites System** - Add/remove products to favorites (Redux + localStorage)- ✅ **Toast Notifications** - User feedback using Sonner
-
-
-
-- ✅ Product Listing with Pagination- ✅ **Create Product** - Form to add new products (POST to `/products/add`)- ✅ **Loading States** - Proper loading indicators throughout the app
+- ✅ Product Listing with Infinite Scroll
 
 - ✅ Search & Category Filter
 
-- ✅ Product Details Page- ✅ **Edit Product** - Pre-filled form for updating (PUT to `/products/:id`)- ✅ **Error Handling** - Comprehensive error handling with user-friendly messages
+- ✅ Product Detail Pages## ✨ Features- ✅ **Favorites System** - Add/remove products to favorites (Redux + localStorage)- ✅ **Toast Notifications** - User feedback using Sonner
 
-- ✅ Create/Edit/Delete Products (for YOUR products only)
+- ✅ Create Product (with form validation)
 
-- ✅ Favorites System with Redux- ✅ **Delete Product** - DELETE request with confirmation dialog- ✅ **Responsive Design** - Mobile-first responsive layout
+- ✅ Edit Product (YOUR products only)
 
-- ✅ User Authentication (mock)
+- ✅ Delete Product (with confirmation)
 
-- ✅ Dark Mode Toggle- ✅ **Mock Authentication** - Login page to access protected features- ✅ **Dark Mode Toggle** - Switch between light and dark themes using Redux
+- ✅ Favorites System (Redux + localStorage)- ✅ Product Listing with Pagination- ✅ **Create Product** - Form to add new products (POST to `/products/add`)- ✅ **Loading States** - Proper loading indicators throughout the app
+
+
+
+### UI/UX Features- ✅ Search & Category Filter
 
 - ✅ Responsive Design (Mobile/Tablet/Desktop)
 
-- ✅ Local Storage Persistence- ✅ **Mock Authentication** - Login page with persistent authentication state
+- ✅ Dark Mode Toggle- ✅ Product Details Page- ✅ **Edit Product** - Pre-filled form for updating (PUT to `/products/:id`)- ✅ **Error Handling** - Comprehensive error handling with user-friendly messages
 
-- ✅ Placeholder Images for User-Created Products
+- ✅ User Dashboard with Statistics
 
-### Bonus Features (✅ All Implemented)
+- ✅ Product Ownership Badges (crown icon)- ✅ Create/Edit/Delete Products (for YOUR products only)
 
-## 🛠️ Tech Stack
+- ✅ Placeholder Images for User Products
 
-- 🎨 **Dark Mode Toggle** - Seamless theme switching with Redux## Tech Stack
+- ✅ Toast Notifications- ✅ Favorites System with Redux- ✅ **Delete Product** - DELETE request with confirmation dialog- ✅ **Responsive Design** - Mobile-first responsive layout
 
-- Next.js 14.2 (App Router)
+- ✅ Loading States
 
-- TypeScript 5.5- 🔔 **Toast Notifications** - User feedback with Sonner
-
-- Redux Toolkit 2.2
-
-- Tailwind CSS 3.4- ⚡ **Loading States** - Professional loading indicators everywhere- **Framework**: Next.js 14 with App Router
-
-- Shadcn UI Components
-
-- DummyJSON API- 🎯 **Error Handling** - Comprehensive error states with user feedback- **Language**: TypeScript
+- ✅ Error Handling- ✅ User Authentication (mock)
 
 
 
-## 🎯 How It Works- 📱 **Responsive Layout** - Mobile-first, fully responsive design- **Styling**: Tailwind CSS
+### Technical Features- ✅ Dark Mode Toggle- ✅ **Mock Authentication** - Login page to access protected features- ✅ **Dark Mode Toggle** - Switch between light and dark themes using Redux
+
+- ✅ Redux Toolkit State Management
+
+- ✅ localStorage Persistence- ✅ Responsive Design (Mobile/Tablet/Desktop)
+
+- ✅ TypeScript Type Safety
+
+- ✅ RESTful API Integration- ✅ Local Storage Persistence- ✅ **Mock Authentication** - Login page with persistent authentication state
+
+- ✅ Static Site Generation
+
+- ✅ GitHub Actions CI/CD- ✅ Placeholder Images for User-Created Products
 
 
+
+## 🛠️ Tech Stack### Bonus Features (✅ All Implemented)
+
+
+
+- **Framework**: Next.js 14.2 (App Router)## 🛠️ Tech Stack
+
+- **Language**: TypeScript 5.5
+
+- **Styling**: Tailwind CSS 3.4- 🎨 **Dark Mode Toggle** - Seamless theme switching with Redux## Tech Stack
+
+- **UI**: Shadcn UI (Radix UI primitives)
+
+- **State**: Redux Toolkit 2.2- Next.js 14.2 (App Router)
+
+- **HTTP**: Axios 1.7
+
+- **Icons**: Lucide React- TypeScript 5.5- 🔔 **Toast Notifications** - User feedback with Sonner
+
+- **Notifications**: Sonner
+
+- **API**: DummyJSON- Redux Toolkit 2.2
+
+
+
+## 🎯 How It Works- Tailwind CSS 3.4- ⚡ **Loading States** - Professional loading indicators everywhere- **Framework**: Next.js 14 with App Router
+
+
+
+### Authentication (Mock System)- Shadcn UI Components
+
+- Any username/password works for demo
+
+- State saved in localStorage- DummyJSON API- 🎯 **Error Handling** - Comprehensive error states with user feedback- **Language**: TypeScript
+
+- Login required for create/edit/delete
+
+
+
+### Product Management
+
+- **View All**: API products + your created products## 🎯 How It Works- 📱 **Responsive Layout** - Mobile-first, fully responsive design- **Styling**: Tailwind CSS
+
+- **Create**: POST to DummyJSON API + save locally
+
+- **Edit**: PATCH to API + update localStorage (YOUR products only)
+
+- **Delete**: DELETE from API + remove from localStorage (YOUR products only)
 
 ### Authentication- 👤 **User Dashboard** - Statistics for logged-in users- **UI Components**: Shadcn UI (Radix UI primitives)
 
-- Mock system: any username/password works
+### Why Local Storage?
 
-- State persists in localStorage- 🏷️ **Product Ownership Tracking** - Visual indicators for user-created products- **State Management**: Redux Toolkit
-
-
-
-### Product Management- 💾 **State Persistence** - All data persists with localStorage- **API Client**: Axios
-
-- **View**: All products from API + your created products
-
-- **Create**: Add new products (saved locally)- **Notifications**: Sonner
-
-- **Edit**: Only YOUR products (marked with crown badge)
-
-- **Delete**: Only YOUR products (confirmation required)## 🚀 Tech Stack- **Icons**: Lucide React
+DummyJSON is a mock API that doesn't persist data. We use localStorage to simulate a real database for your created products.- Mock system: any username/password works
 
 
 
-### Why "Failed to update product" Error?
+## 📁 Project Structure- State persists in localStorage- 🏷️ **Product Ownership Tracking** - Visual indicators for user-created products- **State Management**: Redux Toolkit
 
-You're trying to edit a product you don't own! Only products YOU created can be edited.
 
-| Requirement | Implementation |## Getting Started
-
-## 📁 Project Structure
-
-|------------|----------------|
 
 ```
 
-src/| **Framework** | ✅ Next.js 14 with App Router (`/src/app`) |### Prerequisites
+ecommerce-shop/
 
-├── app/              # Next.js pages
+├── .github/### Product Management- 💾 **State Persistence** - All data persists with localStorage- **API Client**: Axios
 
-├── components/       # React components| **Language** | ✅ TypeScript |
+│   └── workflows/
 
-├── store/            # Redux slices
+│       └── deploy.yml          # GitHub Actions deployment- **View**: All products from API + your created products
 
-├── lib/              # API & utilities| **Styling** | ✅ Tailwind CSS |- Node.js 18+ 
+├── src/
 
-└── types/            # TypeScript types
+│   ├── app/                    # Next.js pages- **Create**: Add new products (saved locally)- **Notifications**: Sonner
 
-```| **UI Components** | ✅ Shadcn UI |- npm or yarn
+│   │   ├── favorites/
+
+│   │   ├── login/- **Edit**: Only YOUR products (marked with crown badge)
+
+│   │   ├── my-products/
+
+│   │   ├── product/- **Delete**: Only YOUR products (confirmation required)## 🚀 Tech Stack- **Icons**: Lucide React
+
+│   │   │   ├── [id]/
+
+│   │   │   │   ├── page.tsx    # Product detail
+
+│   │   │   │   └── edit/       # Edit product
+
+│   │   │   └── create/         # Create product### Why "Failed to update product" Error?
+
+│   │   ├── layout.tsx
+
+│   │   ├── page.tsx            # Home (product listing)You're trying to edit a product you don't own! Only products YOU created can be edited.
+
+│   │   └── globals.css
+
+│   ├── components/| Requirement | Implementation |## Getting Started
+
+│   │   ├── ui/                 # Shadcn UI components
+
+│   │   ├── AuthInitializer.tsx## 📁 Project Structure
+
+│   │   ├── Navbar.tsx
+
+│   │   ├── ProductCard.tsx|------------|----------------|
+
+│   │   ├── ProductForm.tsx
+
+│   │   └── ThemeProvider.tsx```
+
+│   ├── lib/
+
+│   │   ├── api.ts              # API clientsrc/| **Framework** | ✅ Next.js 14 with App Router (`/src/app`) |### Prerequisites
+
+│   │   └── utils.ts
+
+│   ├── providers/├── app/              # Next.js pages
+
+│   │   └── ReduxProvider.tsx
+
+│   ├── store/                  # Redux├── components/       # React components| **Language** | ✅ TypeScript |
+
+│   │   ├── authSlice.ts
+
+│   │   ├── favoritesSlice.ts├── store/            # Redux slices
+
+│   │   ├── themeSlice.ts
+
+│   │   ├── userProductsSlice.ts├── lib/              # API & utilities| **Styling** | ✅ Tailwind CSS |- Node.js 18+ 
+
+│   │   ├── hooks.ts
+
+│   │   └── store.ts└── types/            # TypeScript types
+
+│   └── types/
+
+│       ├── auth.ts```| **UI Components** | ✅ Shadcn UI |- npm or yarn
+
+│       └── product.ts
+
+├── .nojekyll                   # GitHub Pages config
+
+├── DEPLOYMENT.md               # Deployment guide
+
+├── next.config.js              # Next.js config## 🚀 Deployment| **State Management** | ✅ Redux Toolkit |
+
+└── package.json
+
+```
 
 
 
-## 🚀 Deployment| **State Management** | ✅ Redux Toolkit |
+## 🐛 Common IssuesConfigured for GitHub Pages with static export. Push to main branch to auto-deploy.| **API Client** | ✅ Axios |### Installation
 
 
 
-Configured for GitHub Pages with static export. Push to main branch to auto-deploy.| **API Client** | ✅ Axios |### Installation
+### "Failed to update product"
 
-
+**Cause**: Trying to edit a product you don't own
 
 ## 👤 Author| **Notifications** | ✅ Sonner |
 
+**Solution**: Only edit products YOU created (with crown badge)
 
 
-Brook - [@Brooklss](https://github.com/Brooklss)| **API** | ✅ DummyJSON |1. Clone the repository:
+
+### GitHub Pages shows 404
+
+**Cause**: Pages source not set to "GitHub Actions"Brook - [@Brooklss](https://github.com/Brooklss)| **API** | ✅ DummyJSON |1. Clone the repository:
 
 
-```bash
 
-## 📋 Prerequisitesgit clone <repository-url>
+**Solution**: 
+
+1. Go to repo Settings → Pages```bash
+
+2. Build and deployment → Source
+
+3. Select **"GitHub Actions"**## 📋 Prerequisitesgit clone <repository-url>
+
+4. Push a commit to trigger deployment
 
 cd "eCommerce Shop"
 
-- **Node.js** 18.0 or higher```
+### Images not loading locally
 
-- **npm** or **yarn**
+**Cause**: DummyJSON CDN issues or CORS- **Node.js** 18.0 or higher```
 
-- **Git**2. Install dependencies:
 
-```bash
 
-## 🛠️ Installation & Setupnpm install
+**Solution**: User-created products show placeholder icon (no external images needed)- **npm** or **yarn**
+
+
+
+### Port 3000 in use- **Git**2. Install dependencies:
+
+**Solution**: 
+
+```bash```bash
+
+npm run dev -- -p 3001
+
+```## 🛠️ Installation & Setupnpm install
+
+
+
+## 📝 Available Scripts```
+
+
+
+```bash### 1. Clone the Repository
+
+npm run dev          # Start dev server (localhost:3000)
+
+npm run build        # Build for production (creates 'out' folder)```bash3. Run the development server:
+
+npm start            # Start production server (requires build)
+
+npm run lint         # Run ESLintgit clone https://github.com/Brooklss/ecommerce-shop.git```bash
 
 ```
-
-### 1. Clone the Repository
-
-```bash3. Run the development server:
-
-git clone https://github.com/Brooklss/ecommerce-shop.git```bash
 
 cd ecommerce-shopnpm run dev
 
+## 🚀 Deployment Options
+
 ``````
 
+### Option 1: GitHub Pages (Current Setup)
 
+- ✅ Free hosting
 
-### 2. Install Dependencies4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+- ✅ Auto-deploys on push
+
+- ❌ Static only (no server features)### 2. Install Dependencies4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+- See [DEPLOYMENT.md](DEPLOYMENT.md)
 
 ```bash
 
-npm install## Project Structure
+### Option 2: Vercel (Recommended)
 
-```
+- ✅ Full Next.js featuresnpm install## Project Structure
 
-```
+- ✅ Server-side rendering
 
-### 3. Run Development Serversrc/
+- ✅ Image optimization```
 
-```bash├── app/                    # Next.js App Router pages
+- ✅ One-click deploy
 
-npm run dev│   ├── layout.tsx         # Root layout with providers
+- Visit [vercel.com](https://vercel.com)```
 
-```│   ├── page.tsx           # Product listing page
 
-│   ├── favorites/         # Favorites page
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.│   ├── login/             # Login page
+### Option 3: Netlify### 3. Run Development Serversrc/
 
-│   └── product/
+- ✅ Static hosting
 
-### 4. Build for Production│       ├── [id]/          # Product details page
+- ✅ Form handling```bash├── app/                    # Next.js App Router pages
 
-```bash│       ├── [id]/edit/     # Edit product page
+- ✅ Serverless functions
 
-npm run build│       └── create/        # Create product page
+- Visit [netlify.com](https://netlify.com)npm run dev│   ├── layout.tsx         # Root layout with providers
 
-npm start├── components/
 
-```│   ├── ui/                # Shadcn UI components
 
-│   ├── Navbar.tsx         # Navigation bar
+## 🤝 Contributing```│   ├── page.tsx           # Product listing page
 
-## 📁 Project Structure│   ├── ProductCard.tsx    # Product card component
 
-│   ├── ProductForm.tsx    # Product create/edit form
 
-```│   ├── ThemeProvider.tsx  # Theme initialization
+This is a portfolio/demo project. Feel free to fork and customize!│   ├── favorites/         # Favorites page
+
+
+
+## 📄 LicenseOpen [http://localhost:3000](http://localhost:3000) in your browser.│   ├── login/             # Login page
+
+
+
+MIT License - Free to use for learning and portfolio purposes│   └── product/
+
+
+
+## 👤 Author### 4. Build for Production│       ├── [id]/          # Product details page
+
+
+
+**Brook**```bash│       ├── [id]/edit/     # Edit product page
+
+- GitHub: [@Brooklss](https://github.com/Brooklss)
+
+- Repository: [ecommerce-shop](https://github.com/Brooklss/ecommerce-shop)npm run build│       └── create/        # Create product page
+
+
+
+## 🙏 Creditsnpm start├── components/
+
+
+
+- [Next.js](https://nextjs.org/)```│   ├── ui/                # Shadcn UI components
+
+- [DummyJSON](https://dummyjson.com/)
+
+- [Shadcn UI](https://ui.shadcn.com/)│   ├── Navbar.tsx         # Navigation bar
+
+- [Tailwind CSS](https://tailwindcss.com/)
+
+- [Redux Toolkit](https://redux-toolkit.js.org/)## 📁 Project Structure│   ├── ProductCard.tsx    # Product card component
+
+
+
+---│   ├── ProductForm.tsx    # Product create/edit form
+
+
+
+**Note**: This is a demo application. Product data from DummyJSON API is not persistent. User-created products are stored in browser localStorage.```│   ├── ThemeProvider.tsx  # Theme initialization
+
 
 ecommerce-shop/│   └── AuthInitializer.tsx # Auth state initialization
 
