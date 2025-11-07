@@ -9,7 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { useAppDispatch } from '@/store/hooks'
 import { login } from '@/store/authSlice'
 import { toast } from 'sonner'
-import { Loader2 } from 'lucide-react'
+import { Loader2, ShoppingBag } from 'lucide-react'
 
 export default function LoginPage() {
   const router = useRouter()
@@ -49,18 +49,27 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8 flex items-center justify-center min-h-[calc(100vh-4rem)]">
-      <Card className="w-full max-w-md">
-        <CardHeader>
-          <CardTitle>Login</CardTitle>
-          <CardDescription>
-            Enter your credentials to access the shop (mock authentication - any credentials work)
+    <div className="container mx-auto px-3 sm:px-4 py-4 sm:py-8 flex items-center justify-center min-h-[calc(100vh-4rem)]">
+      <Card className="w-full max-w-md shadow-2xl border-2">
+        <CardHeader className="space-y-1 pb-4 sm:pb-6">
+          <div className="flex justify-center mb-3 sm:mb-4">
+            <div className="p-3 sm:p-4 bg-primary/10 rounded-full">
+              <ShoppingBag className="h-10 w-10 sm:h-12 sm:w-12 text-primary" />
+            </div>
+          </div>
+          <CardTitle className="text-2xl sm:text-3xl font-bold text-center">Welcome Back</CardTitle>
+          <CardDescription className="text-center text-sm sm:text-base">
+            Enter your credentials to access your account
+            <br />
+            <span className="text-xs text-muted-foreground mt-2 block">
+              (Demo: any credentials will work)
+            </span>
           </CardDescription>
         </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
+        <CardContent className="px-4 sm:px-6">
+          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
             <div>
-              <Label htmlFor="username">Username</Label>
+              <Label htmlFor="username" className="text-sm sm:text-base font-semibold">Username</Label>
               <Input
                 id="username"
                 value={formData.username}
@@ -68,12 +77,13 @@ export default function LoginPage() {
                   setFormData({ ...formData, username: e.target.value })
                 }
                 required
-                placeholder="Enter username"
+                placeholder="Enter your username"
+                className="mt-2 h-10 sm:h-11"
               />
             </div>
 
             <div>
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password" className="text-sm sm:text-base font-semibold">Password</Label>
               <Input
                 id="password"
                 type="password"
@@ -82,14 +92,19 @@ export default function LoginPage() {
                   setFormData({ ...formData, password: e.target.value })
                 }
                 required
-                placeholder="Enter password"
+                placeholder="Enter your password"
+                className="mt-2 h-10 sm:h-11"
               />
             </div>
 
-            <Button type="submit" disabled={loading} className="w-full">
+            <Button 
+              type="submit" 
+              disabled={loading} 
+              className="w-full h-10 sm:h-11 text-sm sm:text-base font-semibold shadow-lg hover:shadow-xl transition-all"
+            >
               {loading ? (
                 <>
-                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                  <Loader2 className="h-4 w-4 sm:h-5 sm:w-5 mr-2 animate-spin" />
                   Logging in...
                 </>
               ) : (

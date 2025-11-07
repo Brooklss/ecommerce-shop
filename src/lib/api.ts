@@ -32,7 +32,17 @@ export const productApi = {
   // Get all categories
   getCategories: async (): Promise<string[]> => {
     const response = await api.get('/products/categories')
-    return response.data
+    // Handle both string array and object array responses
+    const categories = response.data
+    if (Array.isArray(categories)) {
+      return categories.map(cat => {
+        if (typeof cat === 'string') return cat
+        if (cat && cat.slug) return cat.slug
+        if (cat && cat.name) return cat.name
+        return String(cat)
+      })
+    }
+    return []
   },
 
   // Get products by category
