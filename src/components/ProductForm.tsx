@@ -53,6 +53,7 @@ export default function ProductForm({ productId, onSuccess }: ProductFormProps) 
       }
       fetchProduct()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [productId, isAuthenticated, createdProductIds, createdProducts])
 
   const fetchProduct = async () => {
