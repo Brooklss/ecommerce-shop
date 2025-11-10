@@ -5,13 +5,14 @@ import ReduxProvider from "@/providers/ReduxProvider"
 import ThemeProvider from "@/components/ThemeProvider"
 import AuthInitializer from "@/components/AuthInitializer"
 import Navbar from "@/components/Navbar"
+import Footer from "@/components/Footer"
 import { Toaster } from "sonner"
 
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "eCommerce Shop",
-  description: "Modern eCommerce application built with Next.js",
+  title: "Bcommerce - Built by Brook",
+  description: "Modern eCommerce application built with Next.js by Brook",
 }
 
 export default function RootLayout({
@@ -25,8 +26,11 @@ export default function RootLayout({
         <ReduxProvider>
           <ThemeProvider>
             <AuthInitializer />
-            <Navbar />
-            <main className="min-h-screen">{children}</main>
+            <div className="flex flex-col min-h-screen">
+              <Navbar />
+              <main className="flex-1">{children}</main>
+              <Footer />
+            </div>
             <Toaster position="top-right" />
           </ThemeProvider>
         </ReduxProvider>

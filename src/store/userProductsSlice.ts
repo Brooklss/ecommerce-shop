@@ -40,10 +40,18 @@ const userProductsSlice = createSlice({
       const product = action.payload
       const index = state.createdProducts.findIndex(p => p.id === product.id)
       if (index !== -1) {
+        // Update existing product
         state.createdProducts[index] = product
-        if (typeof window !== 'undefined') {
-          localStorage.setItem('userCreatedProductsData', JSON.stringify(state.createdProducts))
+      } else {
+        // Product not found, add it (fallback for edge cases)
+        if (!state.createdProductIds.includes(product.id)) {
+          state.createdProductIds.push(product.id)
         }
+        state.createdProducts.push(product)
+      }
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('userCreatedProducts', JSON.stringify(state.createdProductIds))
+        localStorage.setItem('userCreatedProductsData', JSON.stringify(state.createdProducts))
       }
     },
     removeCreatedProduct: (state, action: PayloadAction<number>) => {

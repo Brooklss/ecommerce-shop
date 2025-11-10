@@ -37,7 +37,7 @@ export default function Navbar() {
               <ShoppingBag className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
             </div>
             <span className="text-lg sm:text-xl font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
-              eCommerce
+              Bcommerce
             </span>
           </Link>
 
