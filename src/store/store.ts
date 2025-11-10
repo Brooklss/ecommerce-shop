@@ -3,6 +3,7 @@ import favoritesReducer from './favoritesSlice'
 import themeReducer from './themeSlice'
 import authReducer from './authSlice'
 import userProductsReducer from './userProductsSlice'
+import cartReducer from './cartSlice'
 
 export const makeStore = () => {
   return configureStore({
@@ -11,6 +12,7 @@ export const makeStore = () => {
       theme: themeReducer,
       auth: authReducer,
       userProducts: userProductsReducer,
+      cart: cartReducer,
     },
   })
 }

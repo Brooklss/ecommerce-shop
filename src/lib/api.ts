@@ -57,9 +57,15 @@ export const productApi = {
     return response.data
   },
 
-  // Update product
+  // Update product (PUT - full update)
   updateProduct: async (id: number, product: Partial<Product>): Promise<Product> => {
     const response = await api.put(`/products/${id}`, product)
+    return response.data
+  },
+
+  // Patch product (PATCH - partial update)
+  patchProduct: async (id: number, product: Partial<Product>): Promise<Product> => {
+    const response = await api.patch(`/products/${id}`, product)
     return response.data
   },
 

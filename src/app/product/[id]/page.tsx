@@ -3,16 +3,19 @@
 import { useEffect, useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import Image from 'next/image'
+import Link from 'next/link'
 import { Heart, Star, ShoppingBag, Edit, Trash2, ArrowLeft } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { useAppSelector, useAppDispatch } from '@/store/hooks'
 import { toggleFavorite } from '@/store/favoritesSlice'
 import { removeCreatedProduct } from '@/store/userProductsSlice'
+import { addToCart } from '@/store/cartSlice'
 import { productApi } from '@/lib/api'
 import { Product } from '@/types/product'
 import { toast } from 'sonner'
 import { Loader2 } from 'lucide-react'
+import ProductCard from '@/components/ProductCard'
 import {
   Dialog,
   DialogContent,
@@ -39,6 +42,7 @@ export default function ProductDetailPage() {
   const [loading, setLoading] = useState(true)
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
   const [deleting, setDeleting] = useState(false)
+  const [recommendedProducts, setRecommendedProducts] = useState<Product[]>([])
 
   useEffect(() => {
     if (id) {
@@ -54,16 +58,43 @@ export default function ProductDetailPage() {
       const localProduct = createdProducts.find(p => p.id === id)
       if (localProduct) {
         setProduct(localProduct)
+        // Fetch recommendations from same category
+        if (localProduct.category) {
+          fetchRecommendations(localProduct.category)
+        }
       } else {
         // Otherwise fetch from API
         const data = await productApi.getProductById(id)
         setProduct(data)
+        // Fetch recommendations from same category
+        if (data.category) {
+          fetchRecommendations(data.category)
+        }
       }
     } catch (error) {
       console.error('Error fetching product:', error)
       toast.error('Failed to load product')
     } finally {
       setLoading(false)
+    }
+  }
+
+  const fetchRecommendations = async (category: string) => {
+    try {
+      const response = await productApi.getProductsByCategory(category)
+      // Filter out current product and get 4 random recommendations
+      const filtered = response.products.filter(p => p.id !== id)
+      const shuffled = filtered.sort(() => 0.5 - Math.random())
+      setRecommendedProducts(shuffled.slice(0, 4))
+    } catch (error) {
+      console.error('Error fetching recommendations:', error)
+    }
+  }
+
+  const handleAddToCart = () => {
+    if (product) {
+      dispatch(addToCart(product))
+      toast.success('Added to cart!')
     }
   }
 
@@ -240,7 +271,7 @@ export default function ProductDetailPage() {
           </div>
 
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-            <Button className="flex-1 h-12" size="lg">
+            <Button className="flex-1 h-12" size="lg" onClick={handleAddToCart}>
               <ShoppingBag className="h-5 w-5 mr-2" />
               Add to Cart
             </Button>
@@ -269,6 +300,25 @@ export default function ProductDetailPage() {
           </div>
         </div>
       </div>
+
+      {/* Recommended Products */}
+      {recommendedProducts.length > 0 && (
+        <div className="mt-12">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-2xl font-bold">You May Also Like</h2>
+            <Link href={`/?category=${product.category}`}>
+              <Button variant="ghost" size="sm">
+                View All in {product.category}
+              </Button>
+            </Link>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {recommendedProducts.map((recommendedProduct) => (
+              <ProductCard key={recommendedProduct.id} product={recommendedProduct} />
+            ))}
+          </div>
+        </div>
+      )}
 
       <Dialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
         <DialogContent>

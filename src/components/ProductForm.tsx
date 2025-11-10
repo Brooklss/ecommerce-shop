@@ -34,6 +34,7 @@ export default function ProductForm({ productId, onSuccess }: ProductFormProps) 
     stock: '',
     brand: '',
     category: '',
+    rating: '0',
   })
 
   useEffect(() => {
@@ -75,6 +76,7 @@ export default function ProductForm({ productId, onSuccess }: ProductFormProps) 
         stock: product.stock.toString(),
         brand: product.brand || '',
         category: product.category,
+        rating: product.rating?.toString() || '0',
       })
     } catch (error) {
       console.error('Error fetching product:', error)
@@ -86,35 +88,76 @@ export default function ProductForm({ productId, onSuccess }: ProductFormProps) 
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setLoading(true)
+
+    const productData = {
+      title: formData.title,
+      description: formData.description,
+      price: parseFloat(formData.price),
+      stock: parseInt(formData.stock),
+      brand: formData.brand,
+      category: formData.category,
+      rating: parseFloat(formData.rating) || 0,
+    }
+
     try {
-      setLoading(true)
-
-      const productData = {
-        title: formData.title,
-        description: formData.description,
-        price: parseFloat(formData.price),
-        stock: parseInt(formData.stock),
-        brand: formData.brand,
-        category: formData.category,
-      }
-
       if (productId) {
         console.log('Updating product:', productId, productData)
-        const updatedProduct = await productApi.updateProduct(productId, productData)
-        console.log('API response:', updatedProduct)
         
-        // Ensure the updated product has proper structure with the correct ID
-        const productWithDefaults = {
-          ...updatedProduct,
-          id: productId, // Ensure ID is preserved
-          thumbnail: updatedProduct.thumbnail || '',
-          images: updatedProduct.images || [],
-          rating: updatedProduct.rating || 0,
-          discountPercentage: updatedProduct.discountPercentage || 0,
+        // Get the current product from state first
+        const currentProduct = createdProducts.find(p => p.id === productId)
+        
+        if (!currentProduct) {
+          throw new Error('Product not found in your created products')
         }
-        console.log('Dispatching update:', productWithDefaults)
-        dispatch(updateCreatedProduct(productWithDefaults))
+        
+        try {
+          // Try to update via API (will work for DummyJSON products)
+          const updatedProduct = await productApi.patchProduct(productId, productData)
+          console.log('API response:', updatedProduct)
+          
+          // Merge with current product to preserve all fields
+          const productWithDefaults = {
+            ...currentProduct,
+            ...updatedProduct,
+            id: productId, // Ensure ID is preserved
+            title: productData.title,
+            description: productData.description,
+            price: productData.price,
+            stock: productData.stock,
+            brand: productData.brand,
+            category: productData.category,
+            rating: productData.rating,
+            thumbnail: updatedProduct.thumbnail || currentProduct.thumbnail || '',
+            images: updatedProduct.images || currentProduct.images || [],
+            discountPercentage: updatedProduct.discountPercentage || currentProduct.discountPercentage || 0,
+          }
+          console.log('Dispatching update:', productWithDefaults)
+          dispatch(updateCreatedProduct(productWithDefaults as Product))
+        } catch (apiError) {
+          console.log('API update failed, updating locally:', apiError)
+          // If API fails (e.g., for locally created products), update locally
+          const productWithDefaults = {
+            ...currentProduct,
+            id: productId,
+            title: productData.title,
+            description: productData.description,
+            price: productData.price,
+            stock: productData.stock,
+            brand: productData.brand,
+            category: productData.category,
+            rating: productData.rating,
+          }
+          dispatch(updateCreatedProduct(productWithDefaults as Product))
+        }
+        
         toast.success('Product updated successfully')
+        
+        if (onSuccess) {
+          onSuccess()
+        } else {
+          router.push(`/product/${productId}`)
+        }
       } else {
         console.log('Creating product:', productData)
         const newProduct = await productApi.createProduct(productData)
@@ -125,18 +168,18 @@ export default function ProductForm({ productId, onSuccess }: ProductFormProps) 
           ...newProduct,
           thumbnail: newProduct.thumbnail || '',
           images: newProduct.images || [],
-          rating: newProduct.rating || 0,
+          rating: productData.rating,
           discountPercentage: newProduct.discountPercentage || 0,
         }
         console.log('Dispatching add:', productWithDefaults)
         dispatch(addCreatedProduct(productWithDefaults))
         toast.success('Product created successfully')
-      }
-
-      if (onSuccess) {
-        onSuccess()
-      } else {
-        router.push('/')
+        
+        if (onSuccess) {
+          onSuccess()
+        } else {
+          router.push(`/product/${newProduct.id}`)
+        }
       }
     } catch (error) {
       console.error('Error saving product:', error)
@@ -255,6 +298,24 @@ export default function ProductForm({ productId, onSuccess }: ProductFormProps) 
               className="mt-2 h-11"
               placeholder="e.g., electronics, clothing, etc."
             />
+          </div>
+
+          <div>
+            <Label htmlFor="rating" className="text-sm sm:text-base font-semibold">Rating (0-5)</Label>
+            <Input
+              id="rating"
+              type="number"
+              step="0.1"
+              min="0"
+              max="5"
+              value={formData.rating}
+              onChange={(e) =>
+                setFormData({ ...formData, rating: e.target.value })
+              }
+              className="mt-2 h-11"
+              placeholder="0.0"
+            />
+            <p className="text-xs text-muted-foreground mt-1">Set your product rating (0 to 5 stars)</p>
           </div>
 
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-4 sm:pt-6">

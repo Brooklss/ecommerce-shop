@@ -71,7 +71,17 @@ export default function Home() {
       }
 
       let response
-      if (query && query.trim()) {
+      // Priority: Search + Category > Search only > Category only > All products
+      if (query && query.trim() && category && category !== 'all') {
+        // Search within category - get category products then filter by search
+        const categoryResponse = await productApi.getProductsByCategory(category)
+        const searchResults = categoryResponse.products.filter(p => 
+          p.title.toLowerCase().includes(query.toLowerCase()) ||
+          p.description.toLowerCase().includes(query.toLowerCase()) ||
+          p.category.toLowerCase().includes(query.toLowerCase())
+        )
+        response = { ...categoryResponse, products: searchResults }
+      } else if (query && query.trim()) {
         response = await productApi.searchProducts(query)
       } else if (category && category !== 'all') {
         response = await productApi.getProductsByCategory(category)
@@ -99,7 +109,10 @@ export default function Home() {
   // Initial load and search/category filter
   useEffect(() => {
     setSkip(0)
-    if (searchMode) {
+    if (searchMode && categoryMode) {
+      // Both search and category active
+      fetchProducts(0, activeSearchQuery, selectedCategory)
+    } else if (searchMode) {
       fetchProducts(0, activeSearchQuery)
     } else if (categoryMode) {
       fetchProducts(0, undefined, selectedCategory)
@@ -119,8 +132,7 @@ export default function Home() {
     if (searchQuery.trim()) {
       setActiveSearchQuery(searchQuery)
       setSearchMode(true)
-      setCategoryMode(false)
-      setSelectedCategory('all')
+      // Keep category filter active if selected
     } else {
       setActiveSearchQuery('')
       setSearchMode(false)
@@ -131,20 +143,17 @@ export default function Home() {
     setSearchQuery('')
     setActiveSearchQuery('')
     setSearchMode(false)
+    // Keep category filter if it was active
   }
 
   const handleCategoryChange = (value: string) => {
     setSelectedCategory(value)
     if (value === 'all') {
       setCategoryMode(false)
-      setSearchMode(false)
-      setActiveSearchQuery('')
-      setSearchQuery('')
+      // Keep search active if it was active
     } else {
       setCategoryMode(true)
-      setSearchMode(false)
-      setActiveSearchQuery('')
-      setSearchQuery('')
+      // Keep search active if it was active
     }
   }
 

@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Heart, Moon, Sun, ShoppingBag, User, LogOut, Package, Menu, X } from 'lucide-react'
+import { Heart, Moon, Sun, ShoppingBag, User, LogOut, Package, Menu, X, ShoppingCart } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useAppSelector, useAppDispatch } from '@/store/hooks'
 import { toggleTheme } from '@/store/themeSlice'
@@ -16,10 +16,13 @@ export default function Navbar() {
   const router = useRouter()
   const dispatch = useAppDispatch()
   const favorites = useAppSelector((state) => state.favorites.products)
+  const cart = useAppSelector((state) => state.cart.items)
   const isDarkMode = useAppSelector((state) => state.theme.isDarkMode)
   const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated)
   const user = useAppSelector((state) => state.auth.user)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  
+  const cartItemsCount = cart.reduce((total, item) => total + item.quantity, 0)
 
   const handleLogout = () => {
     dispatch(logout())
@@ -65,6 +68,22 @@ export default function Navbar() {
                 </Button>
               </Link>
             )}
+
+            <Link href="/cart" className="relative">
+              <Button
+                variant={pathname === '/cart' ? 'default' : 'ghost'}
+                size="sm"
+                className="relative font-medium"
+              >
+                <ShoppingCart className="h-4 w-4 mr-2" />
+                Cart
+                {cartItemsCount > 0 && (
+                  <span className="ml-2 rounded-full bg-primary text-primary-foreground px-2 py-0.5 text-xs font-bold shadow-lg">
+                    {cartItemsCount}
+                  </span>
+                )}
+              </Button>
+            </Link>
 
             <Link href="/favorites" className="relative">
               <Button
@@ -172,6 +191,21 @@ export default function Navbar() {
                 </Button>
               </Link>
             )}
+
+            <Link href="/cart" onClick={() => setMobileMenuOpen(false)}>
+              <Button
+                variant={pathname === '/cart' ? 'default' : 'ghost'}
+                className="w-full justify-start font-medium relative"
+              >
+                <ShoppingCart className="h-4 w-4 mr-2" />
+                Cart
+                {cartItemsCount > 0 && (
+                  <span className="ml-2 rounded-full bg-primary text-primary-foreground px-2 py-0.5 text-xs font-bold">
+                    {cartItemsCount}
+                  </span>
+                )}
+              </Button>
+            </Link>
 
             <Link href="/favorites" onClick={() => setMobileMenuOpen(false)}>
               <Button
