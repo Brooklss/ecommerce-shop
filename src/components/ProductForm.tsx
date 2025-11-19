@@ -34,6 +34,7 @@ export default function ProductForm({ productId, onSuccess }: ProductFormProps) 
     if (productId) {
       fetchProduct()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [productId])
 
   const fetchProduct = async () => {
