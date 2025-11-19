@@ -2,6 +2,8 @@ import { configureStore } from '@reduxjs/toolkit'
 import favoritesReducer from './favoritesSlice'
 import themeReducer from './themeSlice'
 import authReducer from './authSlice'
+import cartReducer from './cartSlice'
+import userProductsReducer from './userProductsSlice'
 
 export const makeStore = () => {
   return configureStore({
@@ -9,6 +11,8 @@ export const makeStore = () => {
       favorites: favoritesReducer,
       theme: themeReducer,
       auth: authReducer,
+      cart: cartReducer,
+      userProducts: userProductsReducer,
     },
   })
 }
