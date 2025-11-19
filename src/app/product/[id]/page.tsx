@@ -231,7 +231,7 @@ export default function ProductDetailPage() {
           <DialogHeader>
             <DialogTitle>Delete Product</DialogTitle>
             <DialogDescription>
-              Are you sure you want to delete "{product.title}"? This action cannot be undone.
+              Are you sure you want to delete &quot;{product.title}&quot;? This action cannot be undone.
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
