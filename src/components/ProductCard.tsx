@@ -41,9 +41,9 @@ export default function ProductCard({ product }: ProductCardProps) {
 
   return (
     <Link href={`/product/${product.id}`}>
-      <Card className="h-full flex flex-col hover:shadow-2xl transition-all duration-300 border-2 hover:border-primary/50 group">
-        <CardHeader className="p-0 relative overflow-hidden">
-          <div className="relative w-full h-48 bg-muted">
+      <Card className="h-full flex flex-col hover:shadow-2xl transition-all duration-300 border-2 border-border/50 hover:border-primary/60 group bg-gradient-to-br from-card to-card/95 dark:from-card dark:to-card/90 overflow-hidden">
+        <CardHeader className="p-0 relative overflow-hidden rounded-t-lg">
+          <div className="relative w-full h-48 bg-gradient-to-br from-muted via-muted/80 to-muted/60">
             {product.thumbnail ? (
               <Image
                 src={product.thumbnail}
@@ -69,7 +69,7 @@ export default function ProductCard({ product }: ProductCardProps) {
               </div>
             )}
             {isOwned && (
-              <div className="absolute top-3 left-3 bg-gradient-to-r from-amber-500 to-yellow-500 text-white px-3 py-1.5 rounded-full flex items-center gap-1.5 text-xs font-bold shadow-lg">
+              <div className="absolute top-3 left-3 bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-500 text-white px-3 py-1.5 rounded-full flex items-center gap-1.5 text-xs font-bold shadow-xl border border-amber-300/30 backdrop-blur-sm animate-pulse">
                 <Crown className="h-3.5 w-3.5" />
                 Your Product
               </div>
@@ -78,13 +78,13 @@ export default function ProductCard({ product }: ProductCardProps) {
               <Button
                 variant="ghost"
                 size="icon"
-                className="bg-white/90 hover:bg-white backdrop-blur-sm shadow-lg hover:scale-110 transition-transform"
+                className="bg-white/95 hover:bg-white dark:bg-slate-900/95 dark:hover:bg-slate-900 backdrop-blur-md shadow-xl hover:shadow-2xl hover:scale-110 transition-all border border-white/20 dark:border-white/10"
                 onClick={handleToggleFavorite}
               >
                 <Heart
                   className={cn(
-                    'h-5 w-5 transition-colors',
-                    isFavorite ? 'fill-red-500 text-red-500' : 'text-gray-700'
+                    'h-5 w-5 transition-all',
+                    isFavorite ? 'fill-red-500 text-red-500 scale-110' : 'text-gray-700 dark:text-gray-300'
                   )}
                 />
               </Button>
@@ -92,35 +92,35 @@ export default function ProductCard({ product }: ProductCardProps) {
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="bg-white/90 hover:bg-white backdrop-blur-sm shadow-lg hover:scale-110 transition-transform"
+                  className="bg-white/95 hover:bg-white dark:bg-slate-900/95 dark:hover:bg-slate-900 backdrop-blur-md shadow-xl hover:shadow-2xl hover:scale-110 transition-all border border-white/20 dark:border-white/10"
                   onClick={handleEdit}
                 >
-                  <Edit className="h-5 w-5 text-blue-600" />
+                  <Edit className="h-5 w-5 text-blue-600 dark:text-blue-400" />
                 </Button>
               )}
             </div>
           </div>
         </CardHeader>
         <CardContent className="flex-1 p-5">
-          <h3 className="font-bold text-lg mb-2 line-clamp-2 group-hover:text-primary transition-colors">
+          <h3 className="font-bold text-lg mb-3 line-clamp-2 group-hover:text-primary transition-colors">
             {product.title}
           </h3>
-          <p className="text-sm text-muted-foreground mb-3 capitalize font-medium px-2 py-1 bg-muted rounded-md inline-block">
+          <p className="text-xs text-muted-foreground mb-4 capitalize font-semibold px-3 py-1.5 bg-gradient-to-r from-primary/10 to-emerald-500/10 dark:from-primary/20 dark:to-emerald-500/20 rounded-lg inline-block border border-primary/20 dark:border-primary/30">
             {product.category}
           </p>
-          <div className="flex items-center justify-between mb-3">
-            <span className="text-3xl font-bold text-primary">${product.price}</span>
-            <div className="flex items-center gap-1 bg-amber-50 dark:bg-amber-950 px-2 py-1 rounded-md">
+          <div className="flex items-center justify-between mb-4">
+            <span className="text-3xl font-bold bg-gradient-to-r from-primary to-emerald-500 bg-clip-text text-transparent">${product.price}</span>
+            <div className="flex items-center gap-1.5 bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-950/50 dark:to-orange-950/50 px-3 py-1.5 rounded-lg border border-amber-200/50 dark:border-amber-500/30 shadow-sm">
               <span className="text-sm">⭐</span>
               <span className="text-sm font-bold text-amber-600 dark:text-amber-400">{product.rating}</span>
             </div>
           </div>
-          <p className="text-sm text-muted-foreground line-clamp-2">
+          <p className="text-sm text-muted-foreground line-clamp-2 leading-relaxed">
             {product.description}
           </p>
         </CardContent>
         <CardFooter className="p-5 pt-0">
-          <Button className="w-full shadow-md hover:shadow-lg transition-all group-hover:scale-105" variant="default">
+          <Button className="w-full shadow-lg hover:shadow-xl transition-all group-hover:scale-105 bg-gradient-to-r from-primary to-emerald-500 hover:from-primary/90 hover:to-emerald-500/90 text-white font-semibold" variant="default">
             View Details
           </Button>
         </CardFooter>

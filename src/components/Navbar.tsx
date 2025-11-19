@@ -39,7 +39,7 @@ export default function Navbar() {
             <div className="p-2 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors">
               <ShoppingBag className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
             </div>
-            <span className="text-lg sm:text-xl font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
+            <span className="text-lg sm:text-xl font-bold bg-gradient-to-r from-primary via-amber-500 to-orange-500 bg-clip-text text-transparent">
               Bcommerce
             </span>
           </Link>

@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
+import { Poppins, Playfair_Display } from "next/font/google"
 import "./globals.css"
 import ReduxProvider from "@/providers/ReduxProvider"
 import ThemeProvider from "@/components/ThemeProvider"
@@ -8,7 +8,17 @@ import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
 import { Toaster } from "sonner"
 
-const inter = Inter({ subsets: ["latin"] })
+const poppins = Poppins({ 
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800"],
+  variable: "--font-poppins"
+})
+
+const playfair = Playfair_Display({ 
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800", "900"],
+  variable: "--font-playfair"
+})
 
 export const metadata: Metadata = {
   title: "Bcommerce - Built by Brook",
@@ -22,7 +32,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
+      <body className={`${poppins.variable} ${playfair.variable} font-sans`}>
         <ReduxProvider>
           <ThemeProvider>
             <AuthInitializer />

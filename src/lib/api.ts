@@ -32,17 +32,7 @@ export const productApi = {
   // Get all categories
   getCategories: async (): Promise<string[]> => {
     const response = await api.get('/products/categories')
-    // Handle both string array and object array responses
-    const categories = response.data
-    if (Array.isArray(categories)) {
-      return categories.map(cat => {
-        if (typeof cat === 'string') return cat
-        if (cat && cat.slug) return cat.slug
-        if (cat && cat.name) return cat.name
-        return String(cat)
-      })
-    }
-    return []
+    return response.data
   },
 
   // Get products by category
@@ -57,15 +47,9 @@ export const productApi = {
     return response.data
   },
 
-  // Update product (PUT - full update)
+  // Update product
   updateProduct: async (id: number, product: Partial<Product>): Promise<Product> => {
     const response = await api.put(`/products/${id}`, product)
-    return response.data
-  },
-
-  // Patch product (PATCH - partial update)
-  patchProduct: async (id: number, product: Partial<Product>): Promise<Product> => {
-    const response = await api.patch(`/products/${id}`, product)
     return response.data
   },
 

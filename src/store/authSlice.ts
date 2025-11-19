@@ -7,8 +7,26 @@ interface AuthState {
 }
 
 const getInitialAuthState = (): AuthState => {
-  // Always return default state for server-side rendering
-  // State will be hydrated from localStorage in initializeAuth action
+  if (typeof window === 'undefined') {
+    return {
+      user: null,
+      isAuthenticated: false,
+    }
+  }
+
+  try {
+    const userStr = localStorage.getItem('user')
+    if (userStr) {
+      const user = JSON.parse(userStr)
+      return {
+        user,
+        isAuthenticated: true,
+      }
+    }
+  } catch (error) {
+    console.error('Error parsing user from localStorage:', error)
+  }
+
   return {
     user: null,
     isAuthenticated: false,
@@ -36,19 +54,9 @@ const authSlice = createSlice({
       }
     },
     initializeAuth: (state) => {
-      // Only run on client-side
-      if (typeof window === 'undefined') return
-      
-      try {
-        const userStr = localStorage.getItem('user')
-        if (userStr) {
-          const user = JSON.parse(userStr)
-          state.user = user
-          state.isAuthenticated = true
-        }
-      } catch (error) {
-        console.error('Error parsing user from localStorage:', error)
-      }
+      const initial = getInitialAuthState()
+      state.user = initial.user
+      state.isAuthenticated = initial.isAuthenticated
     },
   },
 })

@@ -11,7 +11,7 @@ export default function Footer() {
             <span>Built with</span>
             <Heart className="h-4 w-4 text-red-500 fill-red-500 animate-pulse" />
             <span>by</span>
-            <span className="font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
+            <span className="font-bold bg-gradient-to-r from-primary via-amber-500 to-orange-500 bg-clip-text text-transparent">
               Brook
             </span>
           </div>
