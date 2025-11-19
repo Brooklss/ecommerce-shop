@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import { useAppDispatch } from '@/store/hooks'
+import { addCreatedProduct } from '@/store/userProductsSlice'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -19,6 +21,7 @@ interface ProductFormProps {
 
 export default function ProductForm({ productId, onSuccess }: ProductFormProps) {
   const router = useRouter()
+  const dispatch = useAppDispatch()
   const [loading, setLoading] = useState(false)
   const [fetching, setFetching] = useState(!!productId)
   const [formData, setFormData] = useState({
@@ -75,7 +78,9 @@ export default function ProductForm({ productId, onSuccess }: ProductFormProps) 
         await productApi.updateProduct(productId, productData)
         toast.success('Product updated successfully')
       } else {
-        await productApi.createProduct(productData)
+        const createdProduct = await productApi.createProduct(productData)
+        // Save to Redux store
+        dispatch(addCreatedProduct(createdProduct))
         toast.success('Product created successfully')
       }
 
