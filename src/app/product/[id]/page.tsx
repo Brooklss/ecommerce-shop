@@ -8,6 +8,8 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { useAppSelector, useAppDispatch } from '@/store/hooks'
 import { toggleFavorite } from '@/store/favoritesSlice'
+import { removeCreatedProduct } from '@/store/userProductsSlice'
+import { addToCart } from '@/store/cartSlice'
 import { productApi } from '@/lib/api'
 import { Product } from '@/types/product'
 import { toast } from 'sonner'
@@ -28,6 +30,8 @@ export default function ProductDetailPage() {
   const id = parseInt(params.id as string)
   const dispatch = useAppDispatch()
   const favorites = useAppSelector((state) => state.favorites.products)
+  const createdProducts = useAppSelector((state) => state.userProducts.createdProducts)
+  const createdProductIds = useAppSelector((state) => state.userProducts.createdProductIds)
   const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated)
   const isFavorite = favorites.some((p) => p.id === id)
 
@@ -41,13 +45,23 @@ export default function ProductDetailPage() {
       fetchProduct()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id])
+  }, [id, createdProducts])
 
   const fetchProduct = async () => {
     try {
       setLoading(true)
-      const data = await productApi.getProductById(id)
-      setProduct(data)
+      
+      // First check if it's a locally created product
+      const localProduct = createdProducts.find(p => p.id === id)
+      
+      if (localProduct) {
+        // It's a created product stored locally
+        setProduct(localProduct)
+      } else {
+        // Try to fetch from API
+        const data = await productApi.getProductById(id)
+        setProduct(data)
+      }
     } catch (error) {
       console.error('Error fetching product:', error)
       toast.error('Failed to load product')
@@ -63,12 +77,31 @@ export default function ProductDetailPage() {
     }
   }
 
+  const handleAddToCart = () => {
+    if (product) {
+      dispatch(addToCart(product))
+      toast.success('Added to cart')
+    }
+  }
+
   const handleDelete = async () => {
     try {
       setDeleting(true)
-      await productApi.deleteProduct(id)
-      toast.success('Product deleted successfully')
-      router.push('/')
+      
+      // Check if this is a locally created product
+      const isLocalProduct = createdProductIds.includes(id)
+      
+      if (isLocalProduct) {
+        // Delete from Redux store
+        dispatch(removeCreatedProduct(id))
+        toast.success('Product deleted successfully')
+        router.push('/my-products')
+      } else {
+        // Delete from API (this is a DummyJSON product)
+        await productApi.deleteProduct(id)
+        toast.success('Product deleted successfully')
+        router.push('/')
+      }
     } catch (error) {
       console.error('Error deleting product:', error)
       toast.error('Failed to delete product')
@@ -199,11 +232,11 @@ export default function ProductDetailPage() {
           </div>
 
           <div className="flex gap-4">
-            <Button className="flex-1" size="lg">
+            <Button className="flex-1" size="lg" onClick={handleAddToCart}>
               <ShoppingBag className="h-5 w-5 mr-2" />
               Add to Cart
             </Button>
-            {isAuthenticated && (
+            {isAuthenticated && createdProductIds.includes(id) && (
               <>
                 <Button
                   variant="outline"

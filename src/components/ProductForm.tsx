@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { useAppDispatch } from '@/store/hooks'
-import { addCreatedProduct } from '@/store/userProductsSlice'
+import { useAppDispatch, useAppSelector } from '@/store/hooks'
+import { addCreatedProduct, updateCreatedProduct } from '@/store/userProductsSlice'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -22,6 +22,7 @@ interface ProductFormProps {
 export default function ProductForm({ productId, onSuccess }: ProductFormProps) {
   const router = useRouter()
   const dispatch = useAppDispatch()
+  const createdProducts = useAppSelector((state) => state.userProducts.createdProducts)
   const [loading, setLoading] = useState(false)
   const [fetching, setFetching] = useState(!!productId)
   const [formData, setFormData] = useState({
@@ -43,15 +44,32 @@ export default function ProductForm({ productId, onSuccess }: ProductFormProps) 
   const fetchProduct = async () => {
     try {
       setFetching(true)
-      const product = await productApi.getProductById(productId!)
-      setFormData({
-        title: product.title,
-        description: product.description,
-        price: product.price.toString(),
-        stock: product.stock.toString(),
-        brand: product.brand || '',
-        category: product.category,
-      })
+      
+      // First check if it's a locally created product
+      const localProduct = createdProducts.find(p => p.id === productId)
+      
+      if (localProduct) {
+        // It's a created product stored locally
+        setFormData({
+          title: localProduct.title,
+          description: localProduct.description,
+          price: localProduct.price.toString(),
+          stock: localProduct.stock.toString(),
+          brand: localProduct.brand || '',
+          category: localProduct.category,
+        })
+      } else {
+        // Try to fetch from API
+        const product = await productApi.getProductById(productId!)
+        setFormData({
+          title: product.title,
+          description: product.description,
+          price: product.price.toString(),
+          stock: product.stock.toString(),
+          brand: product.brand || '',
+          category: product.category,
+        })
+      }
     } catch (error) {
       console.error('Error fetching product:', error)
       toast.error('Failed to load product')
@@ -75,8 +93,22 @@ export default function ProductForm({ productId, onSuccess }: ProductFormProps) 
       }
 
       if (productId) {
-        await productApi.updateProduct(productId, productData)
-        toast.success('Product updated successfully')
+        // Check if it's a locally created product
+        const isLocalProduct = createdProducts.some(p => p.id === productId)
+        
+        if (isLocalProduct) {
+          // Update locally stored product
+          const updatedProduct = {
+            ...createdProducts.find(p => p.id === productId)!,
+            ...productData,
+          }
+          dispatch(updateCreatedProduct(updatedProduct as Product))
+          toast.success('Product updated successfully')
+        } else {
+          // Try to update via API
+          await productApi.updateProduct(productId, productData)
+          toast.success('Product updated successfully')
+        }
       } else {
         const createdProduct = await productApi.createProduct(productData)
         // Save to Redux store
