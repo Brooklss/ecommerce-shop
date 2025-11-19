@@ -267,7 +267,7 @@ export default function Home() {
                     <Star className="h-4 w-4 text-amber-600 dark:text-amber-400 fill-amber-500 dark:fill-amber-400" />
                   </div>
                 </div>
-                <p className="text-base font-bold text-foreground mb-1">Editors' Luxe Picks</p>
+                <p className="text-base font-bold text-foreground mb-1">Editors&apos; Luxe Picks</p>
                 <p className="text-xs text-muted-foreground font-medium">Curated daily</p>
               </div>
 
